@@ -1,6 +1,4 @@
-﻿using PcStore.Views.Product;
-using PcStore.Views.Sale;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,29 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PcStore.ViewModels;
 
 namespace PcStore
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ProductViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
+            viewModel = new ProductViewModel();
+            DataContext = viewModel;
         }
-
-        private void MenuItemProducts_Click(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Content = new ProductView();
-        }
-        private void MenuItemSale_Click(object sender, RoutedEventArgs e)
-        {
-            ContentFrame.Content = new SaleView();
-        }
-
     }
 }

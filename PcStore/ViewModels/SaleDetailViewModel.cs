@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PcStore.ViewModels
 {
-    class SaleDetailViewModel
+    class SaleDetailViewModel : INotifyPropertyChanged
     {
-        public int SaleDetailId { get; set; }
-        public int? SaleId { get; set; }
-        public int? ProductId { get; set; }
-        public int? Qty { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
