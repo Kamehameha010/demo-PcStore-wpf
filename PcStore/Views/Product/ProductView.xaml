@@ -21,24 +21,37 @@
         <TextBlock Grid.Row="4" Grid.Column="0" Padding="0,0,0,0" Margin="5,8,5,8">Stock</TextBlock>
         <TextBlock Grid.Row="5" Grid.Column="0" Padding="0,0,0,0" Margin="5,8,5,8">Unit Price:</TextBlock>
 
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtCode" Padding="3,3,3,3" Margin="5,8,5,8"></TextBox>
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtDescription" Padding="3,3,3,3" Margin="5,8,5,8"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtStock" Padding="3,3,3,3" Margin="5,8,5,8"></TextBox>
-        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtPrice" Padding="3,3,3,3" Margin="5,8,5,8"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtCode" Padding="3,3,3,3" Margin="5,8,5,8" Text="{Binding Path=Product.Code}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtDescription" Padding="3,3,3,3" Margin="5,8,5,8" Text="{Binding Path=Product.Description}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtStock" Padding="3,3,3,3" Margin="5,8,5,8" Text="{Binding Path=Product.Stock}"></TextBox>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtPrice" Padding="3,3,3,3" Margin="5,8,5,8" Text="{Binding Path=Product.Price}"></TextBox>
 
         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Margin="5,8,5,8" HorizontalAlignment="Right">
-            <Button x:Name="Save" Content="Save" Margin="5,8,5,8" Padding="4,4,4,4"></Button>
-            <Button x:Name="Update" Content="Update" Margin="5,8,5,8" Padding="4,4,4,4"></Button>
+            <Button x:Name="Save" Content="Save" Margin="5,8,5,8" Padding="4,4,4,4" Command="{Binding Path=SaveCommand}"></Button>
+            <Button x:Name="Update" Content="Update" Margin="5,8,5,8" Padding="4,4,4,4" Command="{Binding Path=UpdateCommand}" ></Button>
             <Button x:Name="Delete" Content="Delete" Margin="5,8,5,8" Padding="4,4,4,4"></Button>
-        </StackPanel>
-
+        </StackPanel> 
         <DataGrid Grid.Row="7" Grid.Column="1" x:Name="dgProducts" AutoGenerateColumns="False" Margin="5,8,5,8" Width="auto"
-                  ItemsSource="{Binding Path=Products}">
+                  ItemsSource="{Binding Path=Products}"
+                  VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Code" Width="auto" Binding="{Binding Path=Code}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Description" Width="auto" Binding="{Binding Path=Description}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Stock" Width="auto" Binding="{Binding Path=Stock}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Price" Width="auto" Binding="{Binding Path=Price}"></DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnUpdate" Content="Edit"  Margin="3" Width="38" Command="{Binding Path=DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding Path=ProductId}"></Button>
+                                <Button x:Name="btnDelete" Content="Delete"  Margin="3" Width="38" Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding Path=ProductId}"></Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
